@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import { sequelize } from "../database/db";
+import  sequelize  from "../database/db";
 
 export interface ProcedureI {
   id?: number;
@@ -11,13 +11,11 @@ export interface ProcedureI {
   performed_date: Date;
 }
 
-interface ProcedureCreationAttributes extends Optional<ProcedureI, "id"> {}
 
-export class Procedure extends Model<ProcedureI, ProcedureCreationAttributes> 
-  implements ProcedureI {
+
+export class Procedure extends Model {
   
   public id!: number;
-  public appointment_id!: number;
   public procedure_code?: string;
   public procedure_name!: string;
   public description?: string;

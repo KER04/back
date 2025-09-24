@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import { sequelize } from "../database/db";
+import  sequelize  from "../database/db";
 
 export interface SpecialtyI {
   id?: number;
@@ -10,10 +10,10 @@ export interface SpecialtyI {
 
 
 export class Specialty extends Model {
-  
+  //el ! indica que no permite valores nulos
   public id!: number;
   public specialty_name!: string;
-  public description?: string;
+  public description!: string;
 }
 
 Specialty.init(

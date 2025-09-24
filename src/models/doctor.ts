@@ -1,29 +1,32 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import { sequelize } from "../database/db";
+import sequelize from "../database/db";
+import { Specialty } from "./specialty";
 
 export interface DoctorI {
   id?: number;
   first_name: string;
   last_name: string;
-  document_id: string;
+  document: string;
   phone?: string;
   email?: string;
   medical_license: string;
   specialty_id: number;
+  status: "ACTIVE | INACTIVE"
 }
 
 
 
 export class Doctor extends Model {
-  
+
   public id!: number;
   public first_name!: string;
   public last_name!: string;
-  public document_id!: string;
+  public document!: string;
   public phone?: string;
   public email?: string;
   public medical_license!: string;
   public specialty_id!: number;
+  public status!: "ACTIVE | INACTIVE"
 }
 
 Doctor.init(
@@ -79,14 +82,11 @@ Doctor.init(
         notEmpty: { msg: "Medical license cannot be empty" }
       }
     },
-    specialty_id: {
-      type: DataTypes.INTEGER,
+    status: {
+      type: DataTypes.ENUM("ACTIVE", "INACTIVE"),
       allowNull: false,
-      references: {
-        model: 'specialties',
-        key: 'id'
-      }
-    }
+      defaultValue: "ACTIVE",
+    },
   },
   {
     sequelize,
@@ -95,3 +95,12 @@ Doctor.init(
     timestamps: false,
   }
 );
+//relaciones 
+Doctor.hasMany(Specialty, {
+  foreignKey: "doctor_id",
+  sourceKey: "id"
+})
+Specialty.belongsTo(Doctor, {
+  foreignKey: "doctor_id",
+  targetKey: "id"
+})

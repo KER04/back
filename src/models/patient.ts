@@ -1,11 +1,11 @@
 import { DataTypes, Model } from "sequelize";
-import { sequelize } from "../database/db";
+import  sequelize  from "../database/db";
 
 export interface PatientI {
   id?: number;
   first_name: string;
   last_name: string;
-  document_id: string;
+  document: string;
   birth_date: Date;
   phone?: string;
   email?: string;
@@ -17,7 +17,7 @@ export class Patient extends Model {
   public id!: number;
   public first_name!: string;
   public last_name!: string;
-  public document_id!: string;
+  public document!: string;
   public birth_date!: Date;
   public phone!: string;
   public email!: string;

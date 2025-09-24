@@ -1,4 +1,4 @@
-import { Patient } from './patient';
+/*import { Patient } from './patient';
 import { Specialty } from './specialty';
 import { Medicine } from './medicine';
 import { Doctor } from './doctor';
@@ -84,4 +84,4 @@ export const syncAllModels = async (force = false) => {
     console.error('❌ Error synchronizing models:', error);
     throw error;
   }
-};
+};*/

@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import { sequelize } from "../database/db";
+import  sequelize  from "../database/db";
 
 export interface AppointmentI {
   id?: number;
@@ -7,7 +7,7 @@ export interface AppointmentI {
   doctor_id: number;
   appointment_datetime: Date;
   consultation_reason?: string;
-  status: "SCHEDULED" | "COMPLETED" | "CANCELLED" | "NO_SHOW";
+  status: "ACTIVE" | "INACTIVE";
   observations?: string;
 }
 
@@ -20,10 +20,10 @@ export class Appointment extends Model {
   public doctor_id!: number;
   public appointment_datetime!: Date;
   public consultation_reason?: string;
-  public status!: "SCHEDULED" | "COMPLETED" | "CANCELLED" | "NO_SHOW";
+  public status!: "ACTIVE" | "INACTIVE";;
   public observations?: string;
 }
-
+//En EL INIT no se ponen las relaciones
 Appointment.init(
   {
     id: {
@@ -31,22 +31,7 @@ Appointment.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    patient_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'patients',
-        key: 'id'
-      }
-    },
-    doctor_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'doctors',
-        key: 'id'
-      }
-    },
+    
     appointment_datetime: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -59,9 +44,9 @@ Appointment.init(
       allowNull: true,
     },
     status: {
-      type: DataTypes.ENUM("SCHEDULED", "COMPLETED", "CANCELLED", "NO_SHOW"),
+      type: DataTypes.ENUM("ACTIVE", "INACTIVE"),
       allowNull: false,
-      defaultValue: "SCHEDULED",
+      defaultValue: "ACTIVE",
     },
     observations: {
       type: DataTypes.TEXT,

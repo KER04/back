@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import { sequelize } from "../database/db";
+import  sequelize  from "../database/db";
 
 export interface DiagnosisI {
   id?: number;
@@ -9,12 +9,12 @@ export interface DiagnosisI {
   description: string;
   diagnosis_date: Date;
   observations?: string;
+  
 }
 
-interface DiagnosisCreationAttributes extends Optional<DiagnosisI, "id"> {}
 
-export class Diagnosis extends Model<DiagnosisI, DiagnosisCreationAttributes> 
-  implements DiagnosisI {
+
+export class Diagnosis extends Model {
   
   public id!: number;
   public patient_id!: number;
@@ -32,22 +32,7 @@ Diagnosis.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    patient_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'patients',
-        key: 'id'
-      }
-    },
-    appointment_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'appointments',
-        key: 'id'
-      }
-    },
+    
     icd10_code: {
       type: DataTypes.STRING(10),
       allowNull: true,

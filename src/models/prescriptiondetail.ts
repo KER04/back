@@ -1,5 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import { sequelize } from "../database/db";
+import  sequelize  from "../database/db";
 
 export interface PrescriptionDetailI {
   id?: number;
@@ -9,20 +9,18 @@ export interface PrescriptionDetailI {
   dosage: string;
   treatment_days: number;
   special_instructions?: string;
+  status: "ACTIVE | INACTIVE"
 }
 
-interface PrescriptionDetailCreationAttributes extends Optional<PrescriptionDetailI, "id"> {}
 
-export class PrescriptionDetail extends Model<PrescriptionDetailI, PrescriptionDetailCreationAttributes> 
-  implements PrescriptionDetailI {
+export class PrescriptionDetail extends Model{
   
   public id!: number;
-  public prescription_id!: number;
-  public medicine_id!: number;
   public quantity!: number;
   public dosage!: string;
   public treatment_days!: number;
   public special_instructions?: string;
+  public status!: "ACTIVE | INACTIVE"
 }
 
 PrescriptionDetail.init(
