@@ -51,7 +51,7 @@ export class App {
     }
   }
 
-  // Start the server
+  // Start the server xd
   async listen() {
     await this.app.listen(this.app.get('port'));
     console.log('Server on port', this.app.get('port'));
