@@ -1,6 +1,8 @@
 import { DataTypes, Model } from "sequelize";
 import  sequelize  from "../database/db";
 
+
+//medicamentos
 export interface MedicineI {
   id?: number;
   commercial_name: string;
@@ -9,6 +11,7 @@ export interface MedicineI {
   pharmaceutical_form: string;
   laboratory?: string;
   unit_price: number;
+  status: "ACTIVE" | "INACTIVE";
 }
 
 export class Medicine extends Model {
@@ -20,6 +23,7 @@ export class Medicine extends Model {
   public pharmaceutical_form!: string;
   public laboratory?: string;
   public unit_price!: number;
+  public status!: "ACTIVE" | "INACTIVE";
 }
 Medicine.init(
   {

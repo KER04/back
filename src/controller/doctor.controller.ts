@@ -1,6 +1,8 @@
 import { Doctor, DoctorI } from "../models/doctor";
 import { Request, Response } from "express";
 
+
+//mostrar que tengan estado activo 
 export class DoctorController {
     public async getAllDoctor(req: Request, res: Response) {
         try {

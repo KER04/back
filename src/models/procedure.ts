@@ -1,6 +1,7 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import  sequelize  from "../database/db";
 
+//procedimiento
 export interface ProcedureI {
   id?: number;
   appointment_id: number;
@@ -9,6 +10,7 @@ export interface ProcedureI {
   description?: string;
   cost: number;
   performed_date: Date;
+  status: "ACTIVE" | "iNACTIVE";
 }
 
 
@@ -21,6 +23,7 @@ export class Procedure extends Model {
   public description?: string;
   public cost!: number;
   public performed_date!: Date;
+  public status!: "ACTIVE" | "iNACTIVE";
 }
 
 Procedure.init(
@@ -29,14 +32,6 @@ Procedure.init(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
-    },
-    appointment_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'appointments',
-        key: 'id'
-      }
     },
     procedure_code: {
       type: DataTypes.STRING(20),

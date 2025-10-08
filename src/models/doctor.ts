@@ -1,7 +1,8 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import sequelize from "../database/db";
+import  sequelize  from "../database/db";
 import { Specialty } from "./specialty";
 
+//medico
 export interface DoctorI {
   id?: number;
   first_name: string;
@@ -82,6 +83,16 @@ Doctor.init(
         notEmpty: { msg: "Medical license cannot be empty" }
       }
     },
+    /*
+    specialty_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: Specialty,
+        key: "id",
+      },
+    },
+    */
     status: {
       type: DataTypes.ENUM("ACTIVE", "INACTIVE"),
       allowNull: false,
@@ -95,12 +106,3 @@ Doctor.init(
     timestamps: false,
   }
 );
-//relaciones 
-Doctor.hasMany(Specialty, {
-  foreignKey: "doctor_id",
-  sourceKey: "id"
-})
-Specialty.belongsTo(Doctor, {
-  foreignKey: "doctor_id",
-  targetKey: "id"
-})

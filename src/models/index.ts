@@ -1,4 +1,4 @@
-/*import { Patient } from './patient';
+import { Patient } from './patient';
 import { Specialty } from './specialty';
 import { Medicine } from './medicine';
 import { Doctor } from './doctor';
@@ -8,7 +8,7 @@ import { Procedure } from './procedure';
 import { Prescription } from './prescription';
 import { PrescriptionDetail } from './prescriptiondetail';
 import { Payment } from './payment';
-import { sequelize } from '../database/db';
+import  sequelize  from '../database/db';
 
 // =====================================================
 // DEFINIR RELACIONES (ASSOCIATIONS)
@@ -17,6 +17,7 @@ import { sequelize } from '../database/db';
 // Specialty -> Doctor (1:N)
 Specialty.hasMany(Doctor, { foreignKey: 'specialty_id', as: 'doctors' });
 Doctor.belongsTo(Specialty, { foreignKey: 'specialty_id', as: 'specialty' });
+
 
 // Patient -> Appointment (1:N)
 Patient.hasMany(Appointment, { foreignKey: 'patient_id', as: 'appointments' });
@@ -84,4 +85,4 @@ export const syncAllModels = async (force = false) => {
     console.error('❌ Error synchronizing models:', error);
     throw error;
   }
-};*/
+};

@@ -1,6 +1,6 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import  sequelize  from "../database/db";
-
+//detalle - receta
 export interface PrescriptionDetailI {
   id?: number;
   prescription_id: number;
@@ -30,22 +30,7 @@ PrescriptionDetail.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    prescription_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'prescriptions',
-        key: 'id'
-      }
-    },
-    medicine_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'medicines',
-        key: 'id'
-      }
-    },
+
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,

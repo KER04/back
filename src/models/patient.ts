@@ -1,6 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import  sequelize  from "../database/db";
 
+//pacientes
 export interface PatientI {
   id?: number;
   first_name: string;
@@ -10,7 +11,8 @@ export interface PatientI {
   phone?: string;
   email?: string;
   address?: string;
-  gender: "MALE" | "FEMALE" | "OTHER";
+  gender: "M" | "F";
+  status: "ACTIVE" | "INACTIVE";
 }
 
 export class Patient extends Model {
@@ -22,7 +24,8 @@ export class Patient extends Model {
   public phone!: string;
   public email!: string;
   public address!: string;
-  public gender!: "MALE" | "FEMALE" | "OTHER";
+  public gender!: "M" | "F";
+  public status!: "ACTIVE" | "INACTIVE";
 }
 
 Patient.init(
@@ -57,8 +60,8 @@ Patient.init(
       allowNull: true,
     },
     gender: {
-      type: DataTypes.ENUM("MALE", "FEMALE", "OTHER"),
-      defaultValue: "OTHER",
+      type: DataTypes.ENUM("MASCULINO", "FEMENINO"),
+      
     },
   },
   {

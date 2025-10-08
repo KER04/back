@@ -1,10 +1,12 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import  sequelize  from "../database/db";
 
+//especialidad
 export interface SpecialtyI {
   id?: number;
   specialty_name: string;
   description?: string;
+  status: "ACTIVE" | "iNACTIVE";
 }
 
 
@@ -14,6 +16,7 @@ export class Specialty extends Model {
   public id!: number;
   public specialty_name!: string;
   public description!: string;
+  public status!: "ACTIVE" | "iNACTIVE";
 }
 
 Specialty.init(

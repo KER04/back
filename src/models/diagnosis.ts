@@ -1,6 +1,7 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import  sequelize  from "../database/db";
 
+//diagnostico
 export interface DiagnosisI {
   id?: number;
   patient_id: number;
@@ -9,6 +10,7 @@ export interface DiagnosisI {
   description: string;
   diagnosis_date: Date;
   observations?: string;
+  status: "ACTIVE" | "INACTIVE";
   
 }
 
@@ -23,6 +25,7 @@ export class Diagnosis extends Model {
   public description!: string;
   public diagnosis_date!: Date;
   public observations?: string;
+  public status!: "ACTIVE" | "INACTIVE";
 }
 
 Diagnosis.init(

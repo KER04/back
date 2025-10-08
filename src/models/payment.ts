@@ -1,32 +1,33 @@
 import { DataTypes, Model, Optional } from "sequelize";
-import { sequelize } from "../database/db";
-
+import  sequelize  from "../database/db";
+//pagos
 export interface PaymentI {
   id?: number;
   appointment_id: number;
   total_amount: number;
   consultation_amount: number;
   procedures_amount: number;
-  payment_method: "CASH" | "CREDIT_CARD" | "DEBIT_CARD" | "TRANSFER" | "INSURANCE";
+  payment_method: "EFECTIVO" | "TARJETA" | "TRANSFERENCIA";
   payment_date: Date;
-  payment_status: "PENDING" | "COMPLETED" | "REFUNDED" | "FAILED";
+  payment_status: "PENDIENTE" | "COMPLETADO" |"FALLIDO";
   invoice_number?: string;
+  status: "ACTIVE" | "INACTIVE";
 }
 
-interface PaymentCreationAttributes extends Optional<PaymentI, "id"> {}
 
-export class Payment extends Model<PaymentI, PaymentCreationAttributes> 
-  implements PaymentI {
+
+export class Payment extends Model {
   
   public id!: number;
   public appointment_id!: number;
   public total_amount!: number;
   public consultation_amount!: number;
   public procedures_amount!: number;
-  public payment_method!: "CASH" | "CREDIT_CARD" | "DEBIT_CARD" | "TRANSFER" | "INSURANCE";
+  public payment_method!: "EFECTIVO" | "TARJETA" | "TRANSFERENCIA";
   public payment_date!: Date;
-  public payment_status!: "PENDING" | "COMPLETED" | "REFUNDED" | "FAILED";
+  public payment_status!: "PENDIENTE" | "COMPLETADO" |"FALLIDO";
   public invoice_number?: string;
+  public status!: "ACTIVE" | "INACTIVE";
 }
 
 Payment.init(
@@ -36,15 +37,7 @@ Payment.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    appointment_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: true, // Relación 1:1 con Appointment
-      references: {
-        model: 'appointments',
-        key: 'id'
-      }
-    },
+  
     total_amount: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
@@ -71,7 +64,7 @@ Payment.init(
       }
     },
     payment_method: {
-      type: DataTypes.ENUM("CASH", "CREDIT_CARD", "DEBIT_CARD", "TRANSFER", "INSURANCE"),
+      type: DataTypes.ENUM("EFECTIVO", "TARJETA" , "TRANSFERENCIA"),
       allowNull: false,
     },
     payment_date: {

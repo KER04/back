@@ -1,6 +1,7 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import  sequelize  from "../database/db";
 
+//citas
 export interface AppointmentI {
   id?: number;
   patient_id: number;
