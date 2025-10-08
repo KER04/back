@@ -1,0 +1,29 @@
+# Listar todos los doctores
+GET http://localhost:3000/api/doctor
+Accept: application/json
+
+# Obtener un doctor por ID
+GET http://localhost:3000/api/doctor/1
+Content-Type: application/json
+
+# Crear un nuevo doctor
+POST http://localhost:3000/api/doctor
+Content-Type: application/json
+
+{
+	"name": "Dr. Juan Pérez",
+	"specialty": "Cardiología"
+}
+
+# Actualizar un doctor
+PUT http://localhost:3000/api/doctor/1
+Content-Type: application/json
+
+{
+	"name": "Dr. Juan Pérez",
+	"specialty": "Neurología"
+}
+
+# Eliminar un doctor
+DELETE http://localhost:3000/api/doctor/1
+Content-Type: application/json

@@ -11,10 +11,7 @@ export interface DiagnosisI {
   diagnosis_date: Date;
   observations?: string;
   status: "ACTIVE" | "INACTIVE";
-  
 }
-
-
 
 export class Diagnosis extends Model {
   
@@ -35,32 +32,56 @@ Diagnosis.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    
+    patient_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'patients',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'RESTRICT'
+    },
+    appointment_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'appointments',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE' // Si se borra la cita, se borra el diagnóstico
+    },
     icd10_code: {
       type: DataTypes.STRING(10),
       allowNull: true,
       validate: {
-        len: { args: [3, 10], msg: "ICD-10 code must be between 3 and 10 characters" }
+        len: { args: [3, 10], msg: "El código CIE-10 debe tener entre 3 y 10 caracteres" }
       }
     },
     description: {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
-        notEmpty: { msg: "Description cannot be empty" }
+        notEmpty: { msg: "La descripción no puede estar vacía" }
       }
     },
     diagnosis_date: {
       type: DataTypes.DATEONLY,
       allowNull: false,
       validate: {
-        //isDate: { msg: "Must be a valid date" }
+        //isDate: { msg: "Debe ser una fecha válida" }
       }
     },
     observations: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    status: {
+      type: DataTypes.ENUM("ACTIVE", "INACTIVE"),
+      allowNull: false,
+      defaultValue: "ACTIVE",
+    }
   },
   {
     sequelize,

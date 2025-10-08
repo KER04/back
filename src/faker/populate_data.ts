@@ -13,7 +13,7 @@ async function createFakeData() {
       phone: faker.string.numeric(faker.number.int({ min: 7, max: 15 })), // teléfono entre 7 y 15 dígitos
       email: faker.internet.email(),
       medical_license: faker.string.alphanumeric(8).toUpperCase(), // licencia médica
-      //specialty_id: faker.number.int({ min: 1, max: 10 }), // asumiendo 10 especialidades
+      specialty_id: faker.number.int({ min: 1, max: 10 }), // asumiendo 10 especialidades
       status: 'ACTIVE',
     });
   }
@@ -24,8 +24,8 @@ createFakeData()
   .catch((error) => console.error('❌ Error al crear datos falsos:', error));
 
 
-
 /*
+// Función para crear datos falsos de especialidades
 async function createFakeSpecialties() {
   const specialties = [
     'Cardiología',

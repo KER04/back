@@ -9,18 +9,19 @@ export interface PrescriptionDetailI {
   dosage: string;
   treatment_days: number;
   special_instructions?: string;
-  status: "ACTIVE | INACTIVE"
+  status: "ACTIVE" | "INACTIVE"; // ⚠️ Corregido: era "ACTIVE | INACTIVE" (sin comillas internas)
 }
-
 
 export class PrescriptionDetail extends Model{
   
   public id!: number;
+  public prescription_id!: number; // ⚠️ Agregado: faltaba en la clase
+  public medicine_id!: number; // ⚠️ Agregado: faltaba en la clase
   public quantity!: number;
   public dosage!: string;
   public treatment_days!: number;
   public special_instructions?: string;
-  public status!: "ACTIVE | INACTIVE"
+  public status!: "ACTIVE" | "INACTIVE"; // ⚠️ Corregido
 }
 
 PrescriptionDetail.init(
@@ -30,36 +31,60 @@ PrescriptionDetail.init(
       autoIncrement: true,
       primaryKey: true,
     },
-
+    prescription_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'prescriptions',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE' // Si se borra la receta, se borran sus detalles
+    },
+    medicine_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'medicines',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'RESTRICT' // No se puede borrar un medicamento con detalles de receta
+    },
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        min: { args: [1], msg: "Quantity must be at least 1" },
-        isInt: { msg: "Quantity must be an integer" }
+        min: { args: [1], msg: "La cantidad debe ser al menos 1" },
+        isInt: { msg: "La cantidad debe ser un número entero" }
       }
     },
     dosage: {
       type: DataTypes.STRING(200),
       allowNull: false,
       validate: {
-        notEmpty: { msg: "Dosage cannot be empty" },
-        len: { args: [3, 200], msg: "Dosage must be between 3 and 200 characters" }
+        notEmpty: { msg: "La dosis no puede estar vacía" },
+        len: { args: [3, 200], msg: "La dosis debe tener entre 3 y 200 caracteres" }
       }
     },
     treatment_days: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        min: { args: [1], msg: "Treatment days must be at least 1" },
-        max: { args: [365], msg: "Treatment days cannot exceed 365" },
-        isInt: { msg: "Treatment days must be an integer" }
+        min: { args: [1], msg: "Los días de tratamiento deben ser al menos 1" },
+        max: { args: [365], msg: "Los días de tratamiento no pueden exceder 365" },
+        isInt: { msg: "Los días de tratamiento deben ser un número entero" }
       }
     },
     special_instructions: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    status: {
+      type: DataTypes.ENUM("ACTIVE", "INACTIVE"),
+      allowNull: false,
+      defaultValue: "ACTIVE",
+    }
   },
   {
     sequelize,

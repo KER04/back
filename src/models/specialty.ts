@@ -6,17 +6,15 @@ export interface SpecialtyI {
   id?: number;
   specialty_name: string;
   description?: string;
-  status: "ACTIVE" | "iNACTIVE";
+  status: "ACTIVE" | "INACTIVE";
 }
-
-
 
 export class Specialty extends Model {
   //el ! indica que no permite valores nulos
   public id!: number;
   public specialty_name!: string;
-  public description!: string;
-  public status!: "ACTIVE" | "iNACTIVE";
+  public description?: string;
+  public status!: "ACTIVE" | "INACTIVE";
 }
 
 Specialty.init(
@@ -31,14 +29,19 @@ Specialty.init(
       allowNull: false,
       unique: true,
       validate: {
-        notEmpty: { msg: "Specialty name cannot be empty" },
-        len: { args: [3, 100], msg: "Specialty name must be between 3 and 100 characters" }
+        notEmpty: { msg: "El nombre de la especialidad no puede estar vacío" },
+        len: { args: [3, 100], msg: "El nombre de la especialidad debe tener entre 3 y 100 caracteres" }
       }
     },
     description: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    status: {
+      type: DataTypes.ENUM("ACTIVE", "INACTIVE"),
+      allowNull: false,
+      defaultValue: "ACTIVE",
+    }
   },
   {
     sequelize,

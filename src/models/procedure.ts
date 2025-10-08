@@ -1,6 +1,5 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import  sequelize  from "../database/db";
-
 //procedimiento
 export interface ProcedureI {
   id?: number;
@@ -10,20 +9,19 @@ export interface ProcedureI {
   description?: string;
   cost: number;
   performed_date: Date;
-  status: "ACTIVE" | "iNACTIVE";
+  status: "ACTIVE" | "INACTIVE"; // ⚠️ Corregido: era "iNACTIVE"
 }
-
-
 
 export class Procedure extends Model {
   
   public id!: number;
+  public appointment_id!: number; // ⚠️ Agregado: faltaba en la clase
   public procedure_code?: string;
   public procedure_name!: string;
   public description?: string;
   public cost!: number;
   public performed_date!: Date;
-  public status!: "ACTIVE" | "iNACTIVE";
+  public status!: "ACTIVE" | "INACTIVE"; // ⚠️ Corregido
 }
 
 Procedure.init(
@@ -33,6 +31,16 @@ Procedure.init(
       autoIncrement: true,
       primaryKey: true,
     },
+    appointment_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'appointments',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE' // Si se borra la cita, se borran sus procedimientos
+    },
     procedure_code: {
       type: DataTypes.STRING(20),
       allowNull: true,
@@ -41,8 +49,8 @@ Procedure.init(
       type: DataTypes.STRING(200),
       allowNull: false,
       validate: {
-        notEmpty: { msg: "Procedure name cannot be empty" },
-        len: { args: [3, 200], msg: "Procedure name must be between 3 and 200 characters" }
+        notEmpty: { msg: "El nombre del procedimiento no puede estar vacío" },
+        len: { args: [3, 200], msg: "El nombre del procedimiento debe tener entre 3 y 200 caracteres" }
       }
     },
     description: {
@@ -53,17 +61,22 @@ Procedure.init(
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
       validate: {
-        min: { args: [0], msg: "Cost must be greater than or equal to 0" },
-        isDecimal: { msg: "Cost must be a decimal number" }
+        min: { args: [0], msg: "El costo debe ser mayor o igual a 0" },
+        isDecimal: { msg: "El costo debe ser un número decimal" }
       }
     },
     performed_date: {
       type: DataTypes.DATEONLY,
       allowNull: false,
       validate: {
-        //isDate: { msg: "Must be a valid date" }
+        //isDate: { msg: "Debe ser una fecha válida" }
       }
     },
+    status: {
+      type: DataTypes.ENUM("ACTIVE", "INACTIVE"),
+      allowNull: false,
+      defaultValue: "ACTIVE",
+    }
   },
   {
     sequelize,

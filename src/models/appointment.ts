@@ -12,8 +12,6 @@ export interface AppointmentI {
   observations?: string;
 }
 
-
-
 export class Appointment extends Model {
   
   public id!: number;
@@ -21,10 +19,10 @@ export class Appointment extends Model {
   public doctor_id!: number;
   public appointment_datetime!: Date;
   public consultation_reason?: string;
-  public status!: "ACTIVE" | "INACTIVE";;
+  public status!: "ACTIVE" | "INACTIVE";
   public observations?: string;
 }
-//En EL INIT no se ponen las relaciones
+
 Appointment.init(
   {
     id: {
@@ -32,12 +30,31 @@ Appointment.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    
+    patient_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'patients',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'RESTRICT'
+    },
+    doctor_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'doctors',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'RESTRICT'
+    },
     appointment_datetime: {
       type: DataTypes.DATE,
       allowNull: false,
       validate: {
-        //isDate: { msg: "Must be a valid date and time" }
+        //isDate: { msg: "Debe ser una fecha y hora válida" }
       }
     },
     consultation_reason: {

@@ -38,13 +38,14 @@ export class App {
   private routes(): void {
     this.routePrv.doctorRoutes.routes(this.app); // de las rutas se llama el public 
     this.routePrv.specialtyRoutes.routes(this.app);
+    this.routePrv.appointmentRoutes.routes(this.app);
   }
 
   // Method to connect and synchronize the database
   private async dbConnection(): Promise<void> {
     try {
-      // force: true para que no se eliminen los registros
-      await sequelize.sync({ force: true }); // Synchronize the database
+      // force: false para que no se eliminen los registros
+      await sequelize.sync({ force: false }); // Synchronize the database
       console.log("Database connected successfully");
     } catch (error) {
       console.error("Unable to connect to the database:", error);

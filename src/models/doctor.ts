@@ -12,10 +12,8 @@ export interface DoctorI {
   email?: string;
   medical_license: string;
   specialty_id: number;
-  status: "ACTIVE | INACTIVE"
+  status: "ACTIVE" | "INACTIVE"; // ⚠️ Corregido: era "ACTIVE | INACTIVE" (sin comillas internas)
 }
-
-
 
 export class Doctor extends Model {
 
@@ -27,7 +25,7 @@ export class Doctor extends Model {
   public email?: string;
   public medical_license!: string;
   public specialty_id!: number;
-  public status!: "ACTIVE | INACTIVE"
+  public status!: "ACTIVE" | "INACTIVE"; // ⚠️ Corregido
 }
 
 Doctor.init(
@@ -41,38 +39,38 @@ Doctor.init(
       type: DataTypes.STRING(100),
       allowNull: false,
       validate: {
-        notEmpty: { msg: "First name cannot be empty" },
-        len: { args: [2, 100], msg: "First name must be between 2 and 100 characters" }
+        notEmpty: { msg: "El nombre no puede estar vacío" },
+        len: { args: [2, 100], msg: "El nombre debe tener entre 2 y 100 caracteres" }
       }
     },
     last_name: {
       type: DataTypes.STRING(100),
       allowNull: false,
       validate: {
-        notEmpty: { msg: "Last name cannot be empty" },
-        len: { args: [2, 100], msg: "Last name must be between 2 and 100 characters" }
+        notEmpty: { msg: "El apellido no puede estar vacío" },
+        len: { args: [2, 100], msg: "El apellido debe tener entre 2 y 100 caracteres" }
       }
     },
-    document_id: {
+    document: { // ⚠️ Corregido: era "document_id" pero en la interface es "document"
       type: DataTypes.STRING(20),
       allowNull: false,
       unique: true,
       validate: {
-        notEmpty: { msg: "Document ID cannot be empty" }
+        notEmpty: { msg: "El documento no puede estar vacío" }
       }
     },
     phone: {
       type: DataTypes.STRING(15),
       allowNull: true,
       validate: {
-        len: { args: [7, 15], msg: "Phone must be between 7 and 15 digits" }
+        len: { args: [7, 15], msg: "El teléfono debe tener entre 7 y 15 dígitos" }
       }
     },
     email: {
       type: DataTypes.STRING(100),
       allowNull: true,
       validate: {
-        isEmail: { msg: "Must be a valid email" }
+        isEmail: { msg: "Debe ser un email válido" }
       }
     },
     medical_license: {
@@ -80,19 +78,19 @@ Doctor.init(
       allowNull: false,
       unique: true,
       validate: {
-        notEmpty: { msg: "Medical license cannot be empty" }
+        notEmpty: { msg: "La matrícula médica no puede estar vacía" }
       }
     },
-    /*
     specialty_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: Specialty,
-        key: "id",
+        model: 'specialties', // ⚠️ Mejor usar string del nombre de tabla
+        key: 'id'
       },
+      onUpdate: 'CASCADE',
+      onDelete: 'RESTRICT' // No se puede borrar una especialidad si tiene doctores
     },
-    */
     status: {
       type: DataTypes.ENUM("ACTIVE", "INACTIVE"),
       allowNull: false,

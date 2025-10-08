@@ -8,14 +8,13 @@ export interface PrescriptionI {
   doctor_id: number;
   issue_date: Date;
   general_instructions?: string;
-  status: "ACTIVE" | "iNACTIVE";
+  status: "ACTIVE" | "INACTIVE"; // ⚠️ Corregido: era "iNACTIVE"
 }
-
-
 
 export class Prescription extends Model {
   
   public id!: number;
+  public appointment_id!: number; // ⚠️ Agregado: faltaba en la clase
   public doctor_id!: number;
   public issue_date!: Date;
   public general_instructions?: string;
@@ -29,12 +28,31 @@ Prescription.init(
       autoIncrement: true,
       primaryKey: true,
     },
-
+    appointment_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'appointments',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE' // Si se borra la cita, se borran sus recetas
+    },
+    doctor_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'doctors',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE',
+      onDelete: 'RESTRICT' // No se puede borrar un doctor con recetas emitidas
+    },
     issue_date: {
       type: DataTypes.DATEONLY,
       allowNull: false,
       validate: {
-        //isDate: { msg: "Must be a valid date" }
+        //isDate: { msg: "Debe ser una fecha válida" }
       }
     },
     general_instructions: {

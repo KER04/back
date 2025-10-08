@@ -1,7 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import  sequelize  from "../database/db";
 
-
 //medicamentos
 export interface MedicineI {
   id?: number;
@@ -25,6 +24,7 @@ export class Medicine extends Model {
   public unit_price!: number;
   public status!: "ACTIVE" | "INACTIVE";
 }
+
 Medicine.init(
   {
     id: {
@@ -36,30 +36,30 @@ Medicine.init(
       type: DataTypes.STRING(100),
       allowNull: false,
       validate: {
-        notEmpty: { msg: "Commercial name cannot be empty" },
-        len: { args: [2, 100], msg: "Commercial name must be between 2 and 100 characters" }
+        notEmpty: { msg: "El nombre comercial no puede estar vacío" },
+        len: { args: [2, 100], msg: "El nombre comercial debe tener entre 2 y 100 caracteres" }
       }
     },
     generic_name: {
       type: DataTypes.STRING(100),
       allowNull: false,
       validate: {
-        notEmpty: { msg: "Generic name cannot be empty" },
-        len: { args: [2, 100], msg: "Generic name must be between 2 and 100 characters" }
+        notEmpty: { msg: "El nombre genérico no puede estar vacío" },
+        len: { args: [2, 100], msg: "El nombre genérico debe tener entre 2 y 100 caracteres" }
       }
     },
     concentration: {
       type: DataTypes.STRING(50),
       allowNull: false,
       validate: {
-        notEmpty: { msg: "Concentration cannot be empty" }
+        notEmpty: { msg: "La concentración no puede estar vacía" }
       }
     },
     pharmaceutical_form: {
       type: DataTypes.STRING(50),
       allowNull: false,
       validate: {
-        notEmpty: { msg: "Pharmaceutical form cannot be empty" }
+        notEmpty: { msg: "La forma farmacéutica no puede estar vacía" }
       }
     },
     laboratory: {
@@ -70,10 +70,15 @@ Medicine.init(
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
       validate: {
-        min: { args: [0], msg: "Price must be greater than 0" },
-        isDecimal: { msg: "Price must be a decimal number" }
+        min: { args: [0], msg: "El precio debe ser mayor que 0" },
+        isDecimal: { msg: "El precio debe ser un número decimal" }
       }
     },
+    status: {
+      type: DataTypes.ENUM("ACTIVE", "INACTIVE"),
+      allowNull: false,
+      defaultValue: "ACTIVE",
+    }
   },
   {
     sequelize,
