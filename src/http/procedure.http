@@ -1,0 +1,11 @@
+### Procedure HTTP requests
+# Base URL: http://localhost:3000/procedures
+@token =
+@baseUrl = http://localhost:3000
+### List procedures
+GET {{baseUrl}}/api/procedure/public
+Accept: application/json
+
+// Peticiones con autenticación
+GET {{baseUrl}}/api/procedure
+Authorization: Bearer {{token}}

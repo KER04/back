@@ -1,0 +1,11 @@
+### PrescriptionDetail HTTP requests
+# Base URL: http://localhost:3000/prescriptionDetails
+@token =
+@baseUrl = http://localhost:3000
+### List prescription details
+GET {{baseUrl}}/api/prescriptionDetail/public
+Accept: application/json
+
+// Peticiones con autenticación
+GET {{baseUrl}}/api/prescriptionDetail
+Authorization: Bearer {{token}}

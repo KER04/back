@@ -1,0 +1,14 @@
+### Appointment HTTP requests
+#Base URL: http://localhost:3000/appointments
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzYwNDA1MDkyLCJleHAiOjE3NjA0MDU2OTJ9.ySIEscEti8YouHEjeV-RpGdI0CRpDYTb9H6AkQfBFY8
+@baseUrl = http://localhost:3000
+### List appointments
+# Peticiones sin autenticación (token no requerido)
+GET {{baseUrl}}/api/appointment/public
+Accept: application/json
+
+### Get appointment by id
+
+# Peticiones con autenticación
+GET {{baseUrl}}/api/appointment
+Authorization: Bearer {{token}}

@@ -1,0 +1,11 @@
+### Patient HTTP requests
+# Base URL: http://localhost:3000/patients
+@token =
+@baseUrl = http://localhost:3000
+### List patients
+GET {{baseUrl}}/api/patient/public
+Accept: application/json
+
+// Peticiones con autenticación
+GET {{baseUrl}}/api/patient
+Authorization: Bearer {{token}}

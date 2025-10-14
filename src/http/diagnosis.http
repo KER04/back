@@ -1,0 +1,16 @@
+### Diagnosis HTTP requests
+# Base URL: http://localhost:3000/diagnoses
+
+@token = 
+@baseUrl = http://localhost:3000
+### List diagnoses
+GET {{baseUrl}}/api/diagnosis/public
+Accept: application/json
+
+### Get diagnosis by id
+
+
+// Peticiones con autenticación
+
+GET {{baseUrl}}/api/diagnosis
+Authorization: Bearer {{token}}

@@ -1,5 +1,9 @@
+
+@token = 
+@baseUrl = http://localhost:3000
+
 # Listar todos los doctores
-GET http://localhost:3000/api/doctor
+GET {{baseUrl}}/api/doctor/public
 Accept: application/json
 
 # Obtener un doctor por ID
@@ -27,3 +31,8 @@ Content-Type: application/json
 # Eliminar un doctor
 DELETE http://localhost:3000/api/doctor/1
 Content-Type: application/json
+
+# Peticiones con autenticación
+
+GET {{baseUrl}}/api/doctor
+Authorization: Bearer {{token}}

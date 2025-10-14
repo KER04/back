@@ -1,0 +1,13 @@
+### Medicine HTTP requests
+# Base URL: http://localhost:3000/medicines
+@token =
+@baseUrl = http://localhost:3000
+### List medicines
+GET {{baseUrl}}/api/medicine/public
+Accept: application/json
+
+### Get medicine by id
+
+// Peticiones con autenticación
+GET {{baseUrl}}/api/medicine
+Authorization: Bearer {{token}}

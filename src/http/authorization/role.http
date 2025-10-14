@@ -1,0 +1,74 @@
+
+@baseUrl = http://localhost:3000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzYwNDE0MTc0LCJleHAiOjE3NjA0MTQ3NzR9.Ec2-x6Poe4oCb4qXHKcZswOVUvnLhJ7q23Wtg2dQuVQ
+
+### ================== RUTAS SIN AUTENTICACIÓN ==================
+
+### Obtener todos los roles
+GET {{baseUrl}}/api/roles/public
+Accept: application/json
+
+### Obtener rol por ID
+GET {{baseUrl}}/api/roles/1
+
+### Crear un nuevo rol
+POST {{baseUrl}}/api/roles/public
+Content-Type: application/json
+
+{
+  "name": "Usuario",
+  "is_active": "ACTIVE"
+}
+
+### Actualizar un rol
+PATCH {{baseUrl}}/api/roles/public/1
+Content-Type: application/json
+
+{
+  "name": "Super Administrator",
+  "is_active": "ACTIVE"
+}
+
+### Eliminar un rol físicamente
+DELETE {{baseUrl}}/api/roles/public/1
+
+### Eliminar un rol lógicamente
+DELETE {{baseUrl}}/api/roles/public/2/logic
+
+### ================== RUTAS CON AUTENTICACIÓN ==================
+
+### Obtener todos los roles (CON token)
+GET {{baseUrl}}/api/roles
+Authorization: Bearer {{token}}
+
+### Obtener rol por ID (CON token)
+GET {{baseUrl}}/api/roles/1
+Authorization: Bearer {{token}}
+
+### Crear un nuevo rol (CON token)
+POST {{baseUrl}}/api/roles
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Manager",
+  "is_active": "ACTIVE"
+}
+
+### Actualizar un rol (CON token)
+PATCH {{baseUrl}}/api/roles/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Senior Manager",
+  "is_active": "ACTIVE"
+}
+
+### Eliminar un rol físicamente (CON token)
+DELETE {{baseUrl}}/api/roles/1
+Authorization: Bearer {{token}}
+
+### Eliminar un rol lógicamente (CON token)
+DELETE {{baseUrl}}/api/roles/1/logic
+Authorization: Bearer {{token}}
