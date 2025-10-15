@@ -1,6 +1,6 @@
 ### roleUser.http
 @baseUrl = http://localhost:3000
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzYwNDE1MDIzLCJleHAiOjE3NjA0MTg2MjN9.q95Wi_Ne6cKYPLS2T_Xp-jOaeGqaHRom80FZUIK3YgU
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzYwNTAxMzExLCJleHAiOjE3NjA1MDQ5MTF9.6TxM5y4Im-UCEHiTmDhFLyK6iY1PBPGKroZpH5gq9K0
 
 ### ================== RUTAS SIN AUTENTICACIÓN ==================
 

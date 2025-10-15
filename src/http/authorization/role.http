@@ -1,6 +1,6 @@
 
 @baseUrl = http://localhost:3000
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzYwNDE0MTc0LCJleHAiOjE3NjA0MTQ3NzR9.Ec2-x6Poe4oCb4qXHKcZswOVUvnLhJ7q23Wtg2dQuVQ
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzYwNTE4MzM0LCJleHAiOjE3NjA1MjE5MzR9.n85SFa4Z8A9Wu69GKzrVLWLjy4KOy9lhb_xtxfIM9_o
 
 ### ================== RUTAS SIN AUTENTICACIÓN ==================
 
@@ -51,22 +51,22 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "name": "Manager",
+  "name": "recepcionista",
   "is_active": "ACTIVE"
 }
 
 ### Actualizar un rol (CON token)
-PATCH {{baseUrl}}/api/roles/1
+PATCH {{baseUrl}}/api/roles/2
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "name": "Senior Manager",
+  "name": "usuario",
   "is_active": "ACTIVE"
 }
 
 ### Eliminar un rol físicamente (CON token)
-DELETE {{baseUrl}}/api/roles/1
+DELETE {{baseUrl}}/api/roles/2
 Authorization: Bearer {{token}}
 
 ### Eliminar un rol lógicamente (CON token)

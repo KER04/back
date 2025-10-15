@@ -1,17 +1,18 @@
 
-@token = 
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzYwNTE4MzM0LCJleHAiOjE3NjA1MjE5MzR9.n85SFa4Z8A9Wu69GKzrVLWLjy4KOy9lhb_xtxfIM9_o
+
 @baseUrl = http://localhost:3000
 
-# Listar todos los doctores
+### Listar todos los doctores
 GET {{baseUrl}}/api/doctor/public
 Accept: application/json
 
-# Obtener un doctor por ID
-GET http://localhost:3000/api/doctor/1
+### Obtener un doctor por ID
+GET http://localhost:3000/api/doctor/public/1
 Content-Type: application/json
 
-# Crear un nuevo doctor
-POST http://localhost:3000/api/doctor
+### Crear un nuevo doctor
+POST http://localhost:3000/api/doctor/public
 Content-Type: application/json
 
 {
@@ -19,8 +20,8 @@ Content-Type: application/json
 	"specialty": "Cardiología"
 }
 
-# Actualizar un doctor
-PUT http://localhost:3000/api/doctor/1
+### Actualizar un doctor
+PUT http://localhost:3000/api/doctor/public/1
 Content-Type: application/json
 
 {
@@ -28,11 +29,55 @@ Content-Type: application/json
 	"specialty": "Neurología"
 }
 
-# Eliminar un doctor
-DELETE http://localhost:3000/api/doctor/1
+### Eliminar un doctor (cambia estado a INACTIVE)
+DELETE http://localhost:3000/api/doctor/public/1
 Content-Type: application/json
 
-# Peticiones con autenticación
-
+### Peticiones con autenticación
+///mostrar todos los doctores (con autenticación)
 GET {{baseUrl}}/api/doctor
 Authorization: Bearer {{token}}
+
+### mostrar un doctor por ID (con autenticación)
+GET {{baseUrl}}/api/doctor/1
+Authorization: Bearer {{token}}
+
+###crear un nuevo doctor (con autenticación)
+
+POST {{baseUrl}}/api/doctor
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+	"first_name": "Prueba3",
+    "last_name": "blablaaa",
+    "document": "8351941", // cédula debe ser diferente siempre
+    "phone": "294255517296550",
+    "email": "bala@yahoo.com",
+    "medical_license": "DCC3OH39S",
+    "specialty_id": 2,
+    "status": "ACTIVE"
+}
+
+### actualizar un doctor (con autenticación)
+PUT {{baseUrl}}/api/doctor/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+	"first_name": "Prueba",
+    "last_name": "blabla",
+    "document": "8359971941",
+    "phone": "29455517296550",
+    "email": "bla@yahoo.com",
+    "medical_license": "DCCOH39S",
+    "specialty_id": 3,
+    "status": "ACTIVE"
+}
+
+### eliminar un doctor (cambia estado a INACTIVE) (con autenticación)
+DELETE {{baseUrl}}/api/doctor/1
+Authorization: Bearer {{token}}
+Accept: application/json
+
+

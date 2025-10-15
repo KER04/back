@@ -1,30 +1,71 @@
-@token =
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzYwNTE4MTcyLCJleHAiOjE3NjA1MjE3NzJ9.H0yN8ZAvrIlr1SUpWOWpTb5Yh0g_aQszC8Hpx8M478I 
 @baseUrl = http://localhost:3000
 
 # Listar todas las especialidades
 GET {{baseUrl}}/api/specialty/public
 Accept: application/json
 
-# Obtener una especialidad por ID
-GET http://localhost:3000/api/specialty/public/1
+### Obtener una especialidad por ID
+GET http://localhost:3000/api/specialty/public/11
 Accept: application/json
 
-# Crear una nueva especialidad
+### Crear una nueva especialidad
 POST http://localhost:3000/api/specialty/public
 Content-Type: application/json
 
 {
-	"name": "Cardiología"
+	"specialty_name": "Seriedad",
+    "description": "Especialista en tratar la seriedad",
+    "status": "ACTIVE"
 }
 
-# Actualizar una especialidad
-PUT http://localhost:3000/api/specialty/public/1
+### Actualizar una especialidad
+PUT http://localhost:3000/api/specialty/public/11
+Content-Type: application/json
+
+{	
+	"specialty_name": "Seriedaad",
+    "description": "Especialista en trataaar la seriedad",
+    "status": "ACTIVE"
+}
+
+### Eliminar una especialidad
+DELETE http://localhost:3000/api/specialty/public/11
+Content-Type: application/json
+
+
+/// Peticiones con autenticación
+
+### mostrar todas las especialidades (con auth)
+GET {{baseUrl}}/api/specialty
+Authorization: Bearer {{token}}
+
+### Obtener una especialidad por ID (con auth)
+GET {{baseUrl}}/api/specialty/1
+Authorization: Bearer {{token}}
+
+### Crear una nueva especialidad (con auth)
+POST {{baseUrl}}/api/specialty
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-	"name": "Neurología"
+	"specialty_name": "prueba",
+	"description": "Especialista prueba",
+	"status": "ACTIVE"
 }
 
-# Eliminar una especialidad
-DELETE http://localhost:3000/api/specialty/public/1
+### Actualizar una especialidad (con auth)
+PUT {{baseUrl}}/api/specialty/12
+Authorization: Bearer {{token}}
 Content-Type: application/json
+
+{
+	"specialty_name": "prueba editada",
+	"description": "Especialista prueba editada",
+	"status": "ACTIVE"
+}
+
+### Eliminar una especialidad logicamente (con auth)
+DELETE {{baseUrl}}/api/specialty/12
+Authorization: Bearer {{token}}

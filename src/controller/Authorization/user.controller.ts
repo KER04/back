@@ -10,4 +10,30 @@ export class UserController {
       res.status(500).json({ error: 'Error al obtener los usuarios' });
     }
   }
+
+
+  public async createUser(req: Request, res: Response) {
+    const { username, email, password, status, avatar } = req.body;
+
+    try {
+      const body: UserI = {
+        username,
+        email,
+        password,
+        is_active: status ?? "ACTIVO",
+        avatar,
+      };
+
+      const newUser = await User.create({ ...body });
+      const created = await User.findByPk(newUser.id, {
+        attributes: { exclude: ["password"] },
+      });
+
+      res.status(201).json({ user: created });
+    } catch (error: any) {
+      res.status(400).json({ error: error.message });
+    }
+  }
+
 }
+

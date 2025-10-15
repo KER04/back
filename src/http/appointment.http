@@ -1,6 +1,6 @@
 ### Appointment HTTP requests
 #Base URL: http://localhost:3000/appointments
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNzYwNDA1MDkyLCJleHAiOjE3NjA0MDU2OTJ9.ySIEscEti8YouHEjeV-RpGdI0CRpDYTb9H6AkQfBFY8
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzYwNTE4MzM0LCJleHAiOjE3NjA1MjE5MzR9.n85SFa4Z8A9Wu69GKzrVLWLjy4KOy9lhb_xtxfIM9_o
 @baseUrl = http://localhost:3000
 ### List appointments
 # Peticiones sin autenticación (token no requerido)

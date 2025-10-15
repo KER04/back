@@ -1,11 +1,93 @@
 ### Procedure HTTP requests
 # Base URL: http://localhost:3000/procedures
-@token =
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzYwNTA5MzA0LCJleHAiOjE3NjA1MTI5MDR9.Gpyq0iGd8qu7nPSpQ_pyVICJCRZSct4fXxUOn0mGjTI
 @baseUrl = http://localhost:3000
-### List procedures
+
+// Peticiones sin autenticación
+### Obtener todos los procedimientos (público)
 GET {{baseUrl}}/api/procedure/public
 Accept: application/json
 
+### Obtener procedimiento por ID (público)
+GET {{baseUrl}}/api/procedure/public/1
+Accept: application/json
+
+### Crear un nuevo procedimiento (publico)
+POST {{baseUrl}}/api/procedure/public
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "appointment_id": 1,
+  "procedure_code": "PROC-001",
+  "procedure_name": "Limpieza dental",
+  "description": "Limpieza y revisión general",
+  "cost": 150000,
+  "performed_date": "2025-10-14",
+  "status": "ACTIVE"
+}
+
+### Actualizar un procedimiento
+PUT {{baseUrl}}/api/procedure/public/21
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "appointment_id": 1,
+  "procedure_code": "PROC-001",
+  "procedure_name": "Limpieza dental profunda",
+  "description": "Limpieza general con ultrasonido",
+  "cost": 200000,
+  "performed_date": "2025-10-14",
+  "status": "ACTIVE"
+}
+
+### Eliminar un procedimiento (cambia estado a INACTIVE)
+DELETE {{baseUrl}}/api/procedure/public/21
+Authorization: Bearer {{token}}
+Accept: application/json
+
+
 // Peticiones con autenticación
+###
 GET {{baseUrl}}/api/procedure
 Authorization: Bearer {{token}}
+
+### Obtener procedimiento por ID (con autenticación)
+GET {{baseUrl}}/api/procedure/1
+Authorization: Bearer {{token}}
+
+### Crear un nuevo procedimiento (con autenticación)
+POST {{baseUrl}}/api/procedure
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "appointment_id": 1,
+  "procedure_code": "PROC-001",
+  "procedure_name": "Limpieza dental",
+  "description": "Limpieza y revisión general",
+  "cost": 150000,
+  "performed_date": "2025-10-14",
+  "status": "ACTIVE"
+}
+
+### Actualizar un procedimiento (con autenticación)
+PUT {{baseUrl}}/api/procedure/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "appointment_id": 1,
+  "procedure_code": "PROC-001",
+  "procedure_name": "Limpieza dental profunda",
+  "description": "Limpieza general con ultrasonido",
+  "cost": 200000,
+  "performed_date": "2025-10-14",
+  "status": "ACTIVE"
+}
+
+### Eliminar un procedimiento (cambia estado a INACTIVE) (con autenticación)
+DELETE {{baseUrl}}/api/procedure/21
+Authorization: Bearer {{token}}
+Accept: application/json
